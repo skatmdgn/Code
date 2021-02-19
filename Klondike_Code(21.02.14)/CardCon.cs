@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -42,7 +42,7 @@ public class CardCon : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         setPos();
         onClk = true;
-        cngSortNCol("Front", spr.sortingOrder);
+        cngSort("Front", spr.sortingOrder);
         rigi.bodyType = RigidbodyType2D.Kinematic;
         if (gameObject.layer != 9)
         {
@@ -90,7 +90,7 @@ public class CardCon : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         gameObject.layer = beforeLayer;
         tag = beforeTag;
         onClk = false;
-        cngSortNCol("Obj", spr.sortingOrder);
+        cngSort("Obj", spr.sortingOrder);
         rigi.bodyType = RigidbodyType2D.Static;
     }
 
@@ -108,7 +108,7 @@ public class CardCon : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         onHit = false;
     }
 
-    private void cngSortNCol(string str, int i)
+    private void cngSort(string str, int i)
     {
         spr.sortingLayerName = str;
         spr.sortingOrder = i;
@@ -153,7 +153,7 @@ public class CardCon : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             transform.parent.gameObject.layer = 9;
         }
         transform.parent = hitObj.transform;
-        cngSortNCol("", hitObj.GetComponent<SpriteRenderer>().sortingOrder + 1);
+        cngSort("", hitObj.GetComponent<SpriteRenderer>().sortingOrder + 1);
         hitObj.layer = 8;
     }
 
