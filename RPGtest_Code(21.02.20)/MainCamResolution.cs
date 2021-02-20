@@ -2,34 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CamCon : MonoBehaviour
+public class MainCamResolution : MonoBehaviour
 {
-    [SerializeField] private bool isMain = false;
-
-    private PlyManager pm;
-    private Vector3 vec;
     private Camera cam;
 
     private void Awake()
     {
-        if (isMain)
-        {
-            cam = GetComponent<Camera>();
-            setupCam();
-        }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        pm = FindObjectOfType<PlyManager>();
-        vec = transform.position - pm.transform.position;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        transform.position = pm.transform.position + vec;
+        cam = GetComponent<Camera>();
+        setupCam();
     }
 
     private void setupCam()
@@ -59,13 +39,10 @@ public class CamCon : MonoBehaviour
 
     private void OnPreCull()
     {
-        if (isMain)
-        {
-            Rect rect = cam.rect;
-            Rect newRect = new Rect(0, 0, 1, 1);
-            cam.rect = newRect;
-            GL.Clear(true, true, Color.black);
-            cam.rect = rect;
-        }
+        Rect rect = cam.rect;
+        Rect newRect = new Rect(0, 0, 1, 1);
+        cam.rect = newRect;
+        GL.Clear(true, true, Color.black);
+        cam.rect = rect;
     }
 }
