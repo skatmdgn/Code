@@ -7,7 +7,8 @@ public class PlyAtkCon : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     private UIManager um;
     private PlyManager pm;
-    private bool onAtk = false;
+    
+    [SerializeField] private bool onAtk = false;
 
     private void Start()
     {
