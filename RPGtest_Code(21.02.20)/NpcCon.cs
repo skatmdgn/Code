@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class NpcCon : MonoBehaviour, IPointerDownHandler
+public class NpcCon : MonoBehaviour, IPointerClickHandler
 {
     private CamManager cm;
     private UIManager um;
@@ -18,7 +18,7 @@ public class NpcCon : MonoBehaviour, IPointerDownHandler
         MapCon = transform.GetChild(3).GetComponent<SpriteRenderer>();
     }
 
-    public void OnPointerDown(PointerEventData e)
+    public void OnPointerClick(PointerEventData e)
     {
         cm.returnMainCam().SetActive(false);
         um.returnUI().SetActive(false);
