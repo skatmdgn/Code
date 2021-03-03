@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NextFlag2 : MonoBehaviour
 {
-    [SerializeField] private Transform[] _nextFlag = null;
+    [SerializeField] private Transform[] _nextFlags = null;
     private List<Transform> flagList = new List<Transform>();
 
     private void Start()
@@ -14,9 +14,9 @@ public class NextFlag2 : MonoBehaviour
 
     private void addList()
     {
-        for (int i = 0; i < _nextFlag.Length; ++i)
+        for (int i = 0; i < _nextFlags.Length; ++i)
         {
-            flagList.Add(_nextFlag[i]);
+            flagList.Add(_nextFlags[i]);
         }
     }
 
