@@ -33,7 +33,7 @@ public class BottomCardSet : MonoBehaviour
         }
     }
 
-    IEnumerator MoveTo(GameObject obj, Vector3 pos)
+    private IEnumerator MoveTo(GameObject obj, Vector3 pos)
     {
         while (true)
         {
