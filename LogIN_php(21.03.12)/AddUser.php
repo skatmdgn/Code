@@ -10,10 +10,6 @@ $input_pw = $_POST["Password"];
 
 $conn = new mysqli($server, $id, $pw, $db);
 
-if($conn->connect_error) {
-	die ("connection failed: " . $conn->connect_error);
-}
-
 $sql = "INSERT INTO user(ID, Password) VALUES ('".$input_id."', '".$input_pw."')";
 $conn->query($sql);
 
