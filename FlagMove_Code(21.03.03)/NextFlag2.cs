@@ -6,6 +6,7 @@ public class NextFlag2 : MonoBehaviour
 {
     [SerializeField] private Transform[] _nextFlags = null;
     private List<Transform> flagList = new List<Transform>();
+    private Transform tr = null;
 
     private void Start()
     {
@@ -22,7 +23,7 @@ public class NextFlag2 : MonoBehaviour
 
     public Transform returnFlag()
     {
-        Transform tr = flagList[0];
+        tr = flagList[0];
         flagList.RemoveAt(0);
         if (flagList.Count == 0)
             addList();
