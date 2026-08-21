@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<!-- saved from url=(0075)https://orpina214-glitch.github.io/-Game-Music-MIDI-Production-Recipe-Book/ -->
+<html lang="ko"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>게임음악 미디 제작 레시피북 — 곡종별 실전 가이드</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link href="./css2/Game-Music-MIDI-Production-Recipe-Book_css2" rel="stylesheet">
+<style>
+  :root{
+    --bg:#12111a;
+    --panel:#1a1926;
+    --panel2:#222031;
+    --ink:#eae7de;
+    --ink-dim:#a8a69e;
+    --line:#2f2c42;
+    --accent:#a8e07a;
+    --good:#7ec97e;
+    --bad:#e4685c;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:'IBM Plex Sans KR',-apple-system,'Apple SD Gothic Neo',sans-serif;
+    line-height:1.75;font-size:16px;-webkit-text-size-adjust:100%;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:0 20px;}
+
+  header{padding:64px 0 44px;border-bottom:1px solid var(--line);}
+  .audience-badge{
+    display:inline-flex;align-items:center;gap:8px;
+    background:rgba(168,224,122,.12);border:1px solid var(--accent);
+    color:var(--accent);font-size:13.5px;font-weight:700;
+    padding:8px 16px;border-radius:999px;margin-bottom:22px;letter-spacing:.3px;
+  }
+  .audience-badge::before{content:"●";font-size:8px;}
+  .era-tag{font-family:'Press Start 2P',monospace;font-size:10px;letter-spacing:2px;color:var(--accent);margin-bottom:20px;}
+  h1{font-size:clamp(25px,5vw,38px);font-weight:700;line-height:1.35;margin-bottom:16px;}
+  .subtitle{color:var(--ink-dim);font-size:15px;max-width:640px;}
+
+  nav.toc{padding:26px 0;border-bottom:1px solid var(--line);}
+  nav.toc ol{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px 24px;}
+  nav.toc a{color:var(--ink-dim);text-decoration:none;font-size:14px;display:flex;gap:10px;align-items:baseline;padding:4px 0;}
+  nav.toc a:hover{color:var(--ink);}
+  nav.toc .num{font-family:'Press Start 2P',monospace;font-size:9px;color:var(--accent);}
+
+  section{padding:52px 0;border-bottom:1px solid var(--line);}
+  .kicker{font-family:'Press Start 2P',monospace;font-size:9px;letter-spacing:2px;color:var(--accent);margin-bottom:14px;text-transform:uppercase;}
+  h2{font-size:24px;font-weight:700;margin-bottom:8px;line-height:1.4;}
+  h3{font-size:17px;font-weight:700;margin:30px 0 12px;}
+  h4{font-size:15px;font-weight:700;margin:20px 0 8px;color:var(--accent);}
+  p{margin-bottom:14px;}
+  p.lead{font-size:17px;}
+  em{font-style:normal;color:var(--accent);font-weight:500;}
+  .dim{color:var(--ink-dim);}
+  code{background:var(--panel2);padding:2px 6px;border-radius:4px;font-size:13.5px;font-family:ui-monospace,Menlo,monospace;}
+
+  .note{background:var(--panel);border-left:3px solid var(--accent);padding:16px 18px;border-radius:0 8px 8px 0;font-size:14.5px;margin:20px 0;}
+  .note strong{color:var(--accent);}
+  .uncertain{font-size:13px;color:var(--ink-dim);border-top:1px dashed var(--line);margin-top:18px;padding-top:10px;}
+
+  /* 레시피 카드 */
+  .recipe{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:0;margin:26px 0;overflow:hidden;}
+  .recipe-head{
+    background:var(--panel2);padding:16px 22px;border-bottom:1px solid var(--line);
+    display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+  }
+  .recipe-head .rno{font-family:'Press Start 2P',monospace;font-size:11px;color:var(--accent);}
+  .recipe-head .rname{font-size:19px;font-weight:700;}
+  .recipe-head .ren{font-size:12.5px;color:var(--ink-dim);letter-spacing:.5px;}
+  .recipe-body{padding:20px 22px;}
+  .spec{display:grid;grid-template-columns:104px 1fr;gap:8px 14px;font-size:14.5px;margin-bottom:6px;}
+  .spec dt{color:var(--ink-dim);font-weight:500;}
+  .spec dd{margin:0;}
+  @media(max-width:560px){.spec{grid-template-columns:1fr;gap:2px;}.spec dt{margin-top:10px;font-size:12.5px;}}
+
+  .steps{counter-reset:st;margin:14px 0 0;padding:0;list-style:none;}
+  .steps li{
+    counter-increment:st;position:relative;padding-left:34px;margin-bottom:12px;font-size:14.5px;
+  }
+  .steps li::before{
+    content:counter(st);position:absolute;left:0;top:2px;
+    width:22px;height:22px;border-radius:50%;
+    background:var(--panel2);border:1px solid var(--accent);color:var(--accent);
+    font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;
+  }
+  .steps li b{color:var(--ink);}
+
+  .checkbox{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin:16px 0 0;font-size:14px;}
+  .checkbox .cbt{font-weight:700;color:var(--accent);margin-bottom:8px;font-size:13.5px;}
+  .checkbox ul{list-style:none;margin:0;}
+  .checkbox li{padding-left:24px;position:relative;margin-bottom:6px;}
+  .checkbox li::before{content:"☐";position:absolute;left:0;color:var(--accent);}
+
+  .fail{font-size:13.5px;color:var(--ink-dim);margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);}
+  .fail b{color:var(--bad);}
+
+  .ref{font-size:13.5px;margin-top:12px;}
+  .ref b{color:var(--ink);}
+
+  .tbl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:20px 0;}
+  table{border-collapse:collapse;width:100%;min-width:600px;font-size:13.5px;}
+  th,td{border:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top;}
+  th{background:var(--panel2);font-weight:700;white-space:nowrap;}
+  td{background:var(--panel);}
+  td.sym{color:var(--bad);font-weight:500;}
+  td.cure b{color:var(--good);}
+
+  .fig{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin:22px 0;}
+  .fig svg{width:100%;height:auto;display:block;}
+  .fig .cap{font-size:13px;color:var(--ink-dim);margin-top:10px;}
+  .fig .cap b{color:var(--ink);}
+
+  footer{padding:44px 0 80px;color:var(--ink-dim);font-size:13px;}
+  .src-list li{margin-bottom:6px;}
+  ul.plain{margin:0 0 14px 20px;}
+  ul.plain li{margin-bottom:8px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="audience-badge">엠나인아카데미 게임음악작곡 과정 수강생용 학습자료</div>
+    <div class="era-tag">M9 ACADEMY — MIDI RECIPE BOOK</div>
+    <h1>게임음악 미디 제작 레시피북<br><span style="color:var(--accent)">곡종별 실전 가이드</span></h1>
+    <p class="subtitle">"보스곡 하나 써야 하는데 어디서부터 시작하지?" — 그 순간 펴는 책입니다.
+    실무에서 실제로 발주되는 곡종 7가지를 각각 한 장의 레시피로 정리했습니다.
+    템포·편성·구조·미디 수치·검수 기준까지 그대로 따라 할 수 있는 형태이고,
+    뒤쪽에는 증상에서 원인을 역추적하는 트러블슈팅 표를 넣었습니다.</p>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="wrap">
+    <ol>
+      <li><a href="https://orpina214-glitch.github.io/-Game-Music-MIDI-Production-Recipe-Book/#howto"><span class="num">00</span>이 문서를 활용하는 법</a></li>
+      <li><a href="https://orpina214-glitch.github.io/-Game-Music-MIDI-Production-Recipe-Book/#core"><span class="num">01</span>모든 레시피의 공통 공정</a></li>
+      <li><a href="https://orpina214-glitch.github.io/-Game-Music-MIDI-Production-Recipe-Book/#r1"><span class="num">02</span>레시피 1 — 마을</a></li>
+      <li><a href="https://orpina214-glitch.github.io/-Game-Music-MIDI-Production-Recipe-Book/#r2"><span class="num">03</span>레시피 2 — 필드</a></li>
+      <li><a href="https://orpina214-glitch.github.io/-Game-Music-MIDI-Production-Recipe-Book/#r3"><span class="num">04</span>레시피 3 — 던전</a></li>
+      <li><a href="https://orpina214-glitch.github.io/-Game-Music-MIDI-Production-Recipe-Book/#r4"><span class="num">05</span>레시피 4 — 일반 전투</a></li>
+      <li><a href="https://orpina214-glitch.github.io/-Game-Music-MIDI-Production-Recipe-Book/#r5"><span class="num">06</span>레시피 5 — 보스 전투</a></li>
+      <li><a href="https://orpina214-glitch.github.io/-Game-Music-MIDI-Production-Recipe-Book/#r6"><span class="num">07</span>레시피 6 — 타이틀·메인테마</a></li>
+      <li><a href="https://orpina214-glitch.github.io/-Game-Music-MIDI-Production-Recipe-Book/#r7"><span class="num">08</span>레시피 7 — 징글</a></li>
+      <li><a href="https://orpina214-glitch.github.io/-Game-Music-MIDI-Production-Recipe-Book/#trouble"><span class="num">09</span>트러블슈팅 표</a></li>
+      <li><a href="https://orpina214-glitch.github.io/-Game-Music-MIDI-Production-Recipe-Book/#vsti"><span class="num">10</span>음원 조합표</a></li>
+    </ol>
+  </div>
+</nav>
+
+<section id="howto">
+  <div class="wrap">
+    <div class="kicker">00 — HOW TO USE</div>
+    <h2>이 문서를 활용하는 법</h2>
+    <p class="lead">읽는 용도가 아니라 <em>펴놓고 작업하는 문서</em>입니다.</p>
+    <p>각 레시피는 여섯 칸으로 되어 있습니다. <b>스펙</b>(템포·조성·길이·편성)에서 프로젝트 설정을 끝내고, <b>구조</b>에서 마디를 배치하고, <b>제작 순서</b>를 위에서 아래로 따라가고, <b>미디 수치</b>를 그대로 적용한 뒤, <b>검수 체크</b>로 자기 곡을 판정하고, <b>레퍼런스</b>로 귀를 맞춥니다.</p>
+    <p>중요한 전제 하나 — <em>여기 적힌 숫자는 법칙이 아니라 출발점입니다.</em> 실무의 관행과 일반적인 경향을 정리한 것이라, 프로젝트의 아트 디렉션이나 장르에 따라 얼마든지 달라집니다. 다만 초보가 가장 많이 막히는 지점이 "어디서부터 시작할지 모르겠다"이므로, 일단 이 값으로 시작해 자기 귀로 조정해나가는 방식을 권합니다. 숫자를 의심 없이 쓰는 것도, 숫자 없이 헤매는 것도 둘 다 성장을 막습니다.</p>
+    <div class="note"><strong>표기 규칙</strong> — <code>CC1</code>은 모듈레이션(대부분 라이브러리에서 다이내믹), <code>CC11</code>은 익스프레션, <code>vel</code>은 벨로시티(0~127)입니다. 라이브러리마다 다이내믹을 CC1이 아닌 벨로시티나 다른 CC에 매핑하는 경우가 있으니 매뉴얼을 먼저 확인하세요.</div>
+  </div>
+</section>
+
+<section id="core">
+  <div class="wrap">
+    <div class="kicker">01 — CORE PROCESS</div>
+    <h2>모든 레시피의 공통 공정</h2>
+    <p>곡종이 달라도 공정의 뼈대는 같습니다. 이 4단계를 먼저 몸에 익히면 레시피는 변주에 불과합니다.</p>
+
+    <h3>1단계 — 다이내믹 곡선 (CC1)</h3>
+    <p>미디 목업의 설득력은 대부분 여기서 갈립니다. 아래 도해가 이 책에서 가장 중요한 그림입니다.</p>
+
+    <div class="fig">
+      <svg viewBox="0 0 700 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="CC1 곡선의 나쁜 예와 좋은 예 비교">
+        <!-- 나쁜 예 -->
+        <text x="0" y="14" fill="#e4685c" font-size="13" font-family="sans-serif" font-weight="700">✕ 평평한 CC1 — 다이내믹 변화 없음</text>
+        <rect x="0" y="26" width="700" height="80" fill="#222031" rx="4"></rect>
+        <line x1="0" y1="66" x2="700" y2="66" stroke="#e4685c" stroke-width="2.5"></line>
+        <text x="8" y="100" fill="#a8a69e" font-size="11" font-family="sans-serif">CC1 = 90 고정 · 4마디 내내 변화 없음</text>
+        <line x1="0" y1="26" x2="0" y2="106" stroke="#2f2c42"></line>
+        <text x="674" y="44" fill="#a8a69e" font-size="10" font-family="sans-serif">127</text>
+        <text x="678" y="102" fill="#a8a69e" font-size="10" font-family="sans-serif">0</text>
+
+        <!-- 좋은 예 -->
+        <text x="0" y="150" fill="#7ec97e" font-size="13" font-family="sans-serif" font-weight="700">○ 프레이즈 곡선 — 정점은 2/3 지점</text>
+        <rect x="0" y="162" width="700" height="80" fill="#222031" rx="4"></rect>
+        <path d="M0 228 C 120 220, 240 190, 350 176 S 500 160, 520 168 C 580 186, 640 214, 700 226" fill="none" stroke="#7ec97e" stroke-width="2.5"></path>
+        <line x1="520" y1="162" x2="520" y2="242" stroke="#7ec97e" stroke-width="1" stroke-dasharray="3 3" opacity=".55"></line>
+        <text x="526" y="176" fill="#7ec97e" font-size="10.5" font-family="sans-serif">정점 95</text>
+        <text x="8" y="222" fill="#a8a69e" font-size="10.5" font-family="sans-serif">시작 25</text>
+        <text x="628" y="220" fill="#a8a69e" font-size="10.5" font-family="sans-serif">감쇠 40</text>
+        <!-- 마디 구분 -->
+        <line x1="175" y1="162" x2="175" y2="242" stroke="#2f2c42"></line>
+        <line x1="350" y1="162" x2="350" y2="242" stroke="#2f2c42"></line>
+        <line x1="525" y1="162" x2="525" y2="242" stroke="#2f2c42"></line>
+        <text x="76" y="256" fill="#a8a69e" font-size="10" font-family="sans-serif">1마디</text>
+        <text x="251" y="256" fill="#a8a69e" font-size="10" font-family="sans-serif">2마디</text>
+        <text x="426" y="256" fill="#a8a69e" font-size="10" font-family="sans-serif">3마디</text>
+        <text x="601" y="256" fill="#a8a69e" font-size="10" font-family="sans-serif">4마디</text>
+      </svg>
+      <div class="cap"><b>위쪽처럼 CC1이 한 값에 고정되면</b> 현·관이 표정 없이 같은 세기로 계속 울려서, 악기가 아니라 기계가 일정하게 웅웅거리는 소리로 들립니다. <b>기본형</b> — 4마디 프레이즈 기준 <code>시작 25 → 3마디 후반 정점 95 → 마지막 마디 40</code>. 정점을 한가운데(2마디 끝)가 아니라 <b>2/3 지점</b>에 두는 것이 핵심입니다. 정중앙에 두면 대칭적이라 기계처럼 들리고, 실제 연주자의 프레이징도 후반부에 정점이 옵니다. 최댓값과 최솟값의 차이는 <b>최소 40 이상</b> 확보하세요.</div>
+    </div>
+
+    <h4>곡종별 CC1 진폭 기준</h4>
+    <div class="tbl-scroll">
+      <table>
+        <tbody><tr><th>상황</th><th>범위</th><th>메모</th></tr>
+        <tr><td>조용한 마을·잔잔한 장면</td><td>20 ~ 70</td><td>천장을 낮게 — 강하게 부풀지 않음</td></tr>
+        <tr><td>필드·탐험</td><td>30 ~ 90</td><td>여정의 기복</td></tr>
+        <tr><td>전투·보스</td><td>50 ~ 120</td><td>바닥을 높게 — 계속 밀어붙임</td></tr>
+        <tr><td>긴장 던전</td><td>15 ~ 65</td><td>작지만 살아 있게 — 미세한 흔들림 유지</td></tr>
+      </tbody></table>
+    </div>
+
+    <h3>2단계 — 벨로시티 패턴</h3>
+    <div class="fig">
+      <svg viewBox="0 0 700 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="벨로시티가 전부 같은 경우와 강세를 준 경우의 비교">
+        <text x="0" y="14" fill="#e4685c" font-size="13" font-family="sans-serif" font-weight="700">✕ 벨로시티 전부 동일 (vel 100 고정)</text>
+        <g fill="#e4685c" opacity=".85">
+          <rect x="0" y="26" width="76" height="52" rx="2"></rect><rect x="88" y="26" width="76" height="52" rx="2"></rect>
+          <rect x="176" y="26" width="76" height="52" rx="2"></rect><rect x="264" y="26" width="76" height="52" rx="2"></rect>
+          <rect x="352" y="26" width="76" height="52" rx="2"></rect><rect x="440" y="26" width="76" height="52" rx="2"></rect>
+          <rect x="528" y="26" width="76" height="52" rx="2"></rect><rect x="616" y="26" width="76" height="52" rx="2"></rect>
+        </g>
+        <text x="0" y="118" fill="#7ec97e" font-size="13" font-family="sans-serif" font-weight="700">○ 강박·여린박에 따라 벨로시티 변화</text>
+        <g fill="#7ec97e" opacity=".9">
+          <rect x="0" y="130" width="76" height="60" rx="2"></rect><rect x="88" y="160" width="76" height="30" rx="2"></rect>
+          <rect x="176" y="146" width="76" height="44" rx="2"></rect><rect x="264" y="163" width="76" height="27" rx="2"></rect>
+          <rect x="352" y="136" width="76" height="54" rx="2"></rect><rect x="440" y="158" width="76" height="32" rx="2"></rect>
+          <rect x="528" y="150" width="76" height="40" rx="2"></rect><rect x="616" y="167" width="76" height="23" rx="2"></rect>
+        </g>
+        <g fill="#a8a69e" font-size="10" font-family="sans-serif">
+          <text x="24" y="204">108</text><text x="112" y="204">78</text><text x="200" y="204">92</text><text x="288" y="204">74</text>
+          <text x="376" y="204">100</text><text x="464" y="204">80</text><text x="552" y="204">88</text><text x="640" y="204">70</text>
+        </g>
+      </svg>
+      <div class="cap"><b>8분음표 8개 기준 예시</b> — 강박이 오는 1·5번째를 높이고, 여린박을 낮춥니다. 위쪽처럼 벨로시티가 전부 같으면 피아노롤의 노트 막대가 <b>벽돌을 쌓은 담처럼</b> 나란히 서는데, 이 모양이 보이면 손을 봐야 한다는 신호입니다. 규칙은 단순합니다: <b>같은 값이 3개 이상 연속되지 않게</b>, 그리고 <b>강박과 여린박의 벨로시티 차이를 20 이상</b> 두기. 위 예시의 <code>108-78-92-74-100-80-88-70</code>을 그대로 복사해 쓰고, 곡에 맞게 ±10씩 조정하세요.</div>
+    </div>
+
+    <h3>3단계 — 아티큘레이션 분리</h3>
+    <p>한 트랙에 롱 패치 하나로 전곡을 연주하면 곡 전체가 뭉개집니다. 최소 이렇게 나누세요.</p>
+    <div class="tbl-scroll">
+      <table>
+        <tbody><tr><th>역할</th><th>패치</th><th>이유</th></tr>
+        <tr><td>멜로디</td><td>레가토 / 서스테인</td><td>음과 음이 이어져야 노래가 됨</td></tr>
+        <tr><td>리듬 반주</td><td>스타카토 / 스피카토 (쇼트)</td><td>롱 패치로 찍으면 어택이 뭉개져 리듬이 흐려짐</td></tr>
+        <tr><td>배경 지속</td><td>서스테인 (약한 다이내믹)</td><td>화성만 받쳐주는 역할</td></tr>
+        <tr><td>강조·타격</td><td>마르카토 / 액센트</td><td>구조의 전환점을 찍음</td></tr>
+      </tbody></table>
+    </div>
+    <p class="dim">트랙 분리 원칙 — 아티큘레이션마다 <em>별도 트랙</em>을 만드는 편이 키스위치를 한 트랙에 몰아넣는 것보다 편집·수정이 훨씬 빠릅니다. 현악 하나에 "Str Legato / Str Short / Str Sus" 세 트랙을 두는 식입니다.</p>
+
+    <h3>4단계 — 휴머나이즈 수치</h3>
+    <div class="tbl-scroll">
+      <table>
+        <tbody><tr><th>대상</th><th>타이밍 처리</th><th>비고</th></tr>
+        <tr><td>피아노 화음</td><td>5~12ms 롤링</td><td>아래에서 위로 굴리는 것이 자연스러움</td></tr>
+        <tr><td>하프 글리산도·화음</td><td>20~40ms</td><td>넓게 굴릴수록 하프다움</td></tr>
+        <tr><td>기타 스트로크</td><td>15~25ms</td><td>다운/업 방향 교대</td></tr>
+        <tr><td>섹션 더블링(현·관)</td><td>3~8ms 어긋냄</td><td>두 트랙 이상 겹칠 때 완전 동시 금지</td></tr>
+        <tr><td>쇼트 스트링 오스티나토</td><td>퀀타이즈 92~96%</td><td>너무 풀면 리듬이 무너짐</td></tr>
+        <tr><td>어쿠스틱 드럼·재즈</td><td>퀀타이즈 80~88%</td><td>그루브의 여유</td></tr>
+        <tr><td>칩튠·EDM·리듬게임</td><td>퀀타이즈 100%</td><td>그리드가 장르의 정체성 — 휴머나이즈 금지</td></tr>
+      </tbody></table>
+    </div>
+    <p class="dim">노트 길이도 휴머나이즈 대상입니다. 레가토 멜로디는 노트를 <em>2~5% 겹치게</em>(다음 노트 시작을 살짝 침범) 하면 라이브러리의 레가토 전이가 제대로 발동합니다. 반대로 쇼트 패치는 노트 길이가 짧아도 샘플 전체가 재생되므로 길이를 신경 쓸 필요가 적습니다.</p>
+  </div>
+</section>
+
+<!-- ===== 레시피 1 : 마을 ===== -->
+<section id="r1">
+  <div class="wrap">
+    <div class="kicker">02 — RECIPE 01</div>
+    <div class="recipe">
+      <div class="recipe-head">
+        <span class="rno">01</span><span class="rname">마을 · 안전지대</span><span class="ren">TOWN / SAFE ZONE</span>
+      </div>
+      <div class="recipe-body">
+        <dl class="spec">
+          <dt>템포</dt><dd>72 ~ 96 BPM (걷는 속도보다 조금 느리게)</dd>
+          <dt>조성</dt><dd>장조 중심. 따뜻함을 원하면 F·B♭장조, 맑음을 원하면 D·G장조</dd>
+          <dt>박자</dt><dd>4/4 기본, 목가적 분위기엔 6/8 또는 3/4</dd>
+          <dt>길이</dt><dd>60~90초 루프 (32~48마디)</dd>
+          <dt>편성</dt><dd>6~10트랙. 주선율 1(플루트·오보에·바이올린 솔로 중 택1) / 화성 2~3(현 서스테인·기타·하프) / 베이스 1(첼로·콘트라베이스 피치카토) / 색채 1~2(글로켄슈필·리코더·아코디언) / 타악은 없거나 아주 가볍게(탬버린·셰이커)</dd>
+        </dl>
+        <h4>구조</h4>
+        <p style="font-size:14.5px"><code>A(8마디) → A'(8) → B(8) → A''(8)</code> — B 구간에서 조성이나 편성을 한 번 환기하고 A로 돌아옵니다. 마지막 A''의 끝은 처음 A로 자연스럽게 이어지도록 화성을 정리(대개 V → I 대신 <em>IV → I</em>이나 지속음으로 흘려보내기).</p>
+        <h4>제작 순서</h4>
+        <ol class="steps">
+          <li><b>코드 진행부터.</b> 4마디 루프로 시작 — 예: <code>I - V/vi - vi - IV</code> 또는 <code>I - IV - vi - V</code>. 복잡한 진행을 피하세요. 수백 번 들을 곡입니다.</li>
+          <li><b>베이스와 화성 채우기.</b> 베이스는 근음 중심 2분음표, 화성 트랙은 8분 아르페지오나 온음표 패드.</li>
+          <li><b>멜로디 작성.</b> 4~6음 범위의 좁은 도약, 쉼표를 넉넉히. 마을 멜로디는 "흥얼거려지는" 것이 목표이므로 리듬을 단순하게.</li>
+          <li><b>색채 악기 얹기.</b> 8마디에 한 번 정도만 등장하는 글로켄 한 줄이 곡의 표정을 만듭니다.</li>
+          <li><b>CC1 그리기.</b> 범위 20~70. 멜로디 프레이즈마다 완만한 산 하나.</li>
+          <li><b>여백 확인.</b> 모든 트랙이 동시에 울리는 마디를 줄이세요. 마을 곡의 품질은 <em>비어 있는 순간</em>에서 나옵니다.</li>
+        </ol>
+        <h4>미디 수치</h4>
+        <p style="font-size:14.5px">멜로디 벨로시티 <code>62~88</code> (전투곡보다 20 정도 낮게) · CC1 <code>20~70</code> · 피아노/하프 롤링 <code>8~20ms</code> · 퀀타이즈 <code>88~94%</code> · 리버브는 중간 홀 계열, 프리딜레이 20~30ms</p>
+        <div class="checkbox">
+          <div class="cbt">검수 체크</div>
+          <ul>
+            <li>루프를 10회 연속 재생했을 때 거슬리는 지점이 없는가</li>
+            <li>같은 벨로시티 값이 4개 이상 연속되지 않는가</li>
+            <li>CC1의 최대-최소 차이가 40 이상인가</li>
+            <li>동시에 울리는 트랙이 5개를 넘는 마디가 전체의 절반 이하인가</li>
+            <li>멜로디를 목소리로 따라 부를 수 있는가</li>
+          </ul>
+        </div>
+        <div class="fail"><b>흔한 실패</b> — ① 트랙을 계속 쌓아 "꽉 찬 마을"을 만듦 → 10분 들으면 피곤해짐 ② 멜로디를 화려하게 만듦 → 마을은 배경이지 주인공이 아님 ③ 루프 끝에서 완전 종지(V-I)로 확실히 끝내버림 → 반복될 때마다 "끊긴다"는 인상</div>
+        <div class="ref"><b>레퍼런스</b> — 드래곤 퀘스트 시리즈의 마을 곡(레퍼런스 1부 참고), 젤다 시리즈의 마을·상점, 스타듀 밸리 계절 테마, 파이널 판타지 시리즈 초반 마을</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 레시피 2 : 필드 ===== -->
+<section id="r2">
+  <div class="wrap">
+    <div class="kicker">03 — RECIPE 02</div>
+    <div class="recipe">
+      <div class="recipe-head">
+        <span class="rno">02</span><span class="rname">필드 · 탐험</span><span class="ren">FIELD / EXPLORATION</span>
+      </div>
+      <div class="recipe-body">
+        <dl class="spec">
+          <dt>템포</dt><dd>96 ~ 126 BPM (이동 속도에 맞춤 — 캐릭터 달리기 애니메이션 주기를 확인하고 정할 것)</dd>
+          <dt>조성</dt><dd>장조 또는 믹솔리디안. 모험감엔 D·A장조가 잘 맞음</dd>
+          <dt>길이</dt><dd>90~150초 루프 (오래 머무는 구간이므로 마을보다 길게)</dd>
+          <dt>편성</dt><dd>10~16트랙. 멜로디(현 또는 호른) / 대선율 1 / 화성 현 2~3 / 베이스 / 타악 2~3(스네어 행진 패턴·팀파니) / 색채(하프 글리산도·글로켄)</dd>
+        </dl>
+        <h4>구조</h4>
+        <p style="font-size:14.5px"><code>인트로(4) → A(16) → B(16) → C 브릿지(8) → A'(16)</code> — 필드는 오래 듣는 구간이라 <em>재료를 아껴 쓰는 것</em>이 관건입니다. 같은 멜로디를 다른 악기가 이어받는 방식(현 → 호른 → 목관)으로 길이를 늘리면 지루함이 줄어듭니다.</p>
+        <h4>제작 순서</h4>
+        <ol class="steps">
+          <li><b>템포를 게임에서 먼저 정한다.</b> 콘도 코지와 고시로 유조가 독립적으로 도달한 원칙(레퍼런스 1부) — 화면의 이동 속도에 맞춰 BPM을 찾으세요. 가능하면 게임 영상을 재생하며 메트로놈을 맞춰보는 것이 가장 정확합니다.</li>
+          <li><b>리듬 엔진부터.</b> 필드곡은 추진력이 생명입니다. 베이스와 타악의 8분/16분 패턴을 먼저 깔고 시작하세요.</li>
+          <li><b>멜로디는 넓게.</b> 마을과 반대로 도약을 넣고 음역을 넓게 씁니다. 5도·옥타브 도약이 "탁 트인" 인상을 만듭니다.</li>
+          <li><b>대선율 추가.</b> 멜로디가 쉬는 마디에 다른 악기가 응답하는 구조(콜 앤 리스폰스)로 밀도를 유지.</li>
+          <li><b>악기 릴레이.</b> A와 A'에서 같은 멜로디를 다른 악기가 연주하도록 배치.</li>
+          <li><b>CC1과 아티큘레이션.</b> 범위 30~90. 리듬 반주는 반드시 쇼트 패치.</li>
+        </ol>
+        <h4>미디 수치</h4>
+        <p style="font-size:14.5px">멜로디 벨로시티 <code>75~105</code> · 쇼트 반주 <code>68~95</code> · CC1 <code>30~90</code> · 쇼트 패치 퀀타이즈 <code>92~96%</code> · 섹션 더블링 <code>3~8ms</code> 어긋냄</p>
+        <div class="checkbox">
+          <div class="cbt">검수 체크</div>
+          <ul>
+            <li>2분 내내 들었을 때 같은 조합이 3회 이상 반복되지 않는가</li>
+            <li>멜로디를 연주하는 악기가 최소 2번 바뀌는가</li>
+            <li>정한 BPM이 실제 게임 이동 속도와 어긋나지 않는가</li>
+            <li>쇼트 패치와 롱 패치가 트랙으로 분리되어 있는가</li>
+          </ul>
+        </div>
+        <div class="fail"><b>흔한 실패</b> — ① 처음부터 모든 악기를 넣음 → 뒤로 갈수록 더 얹을 것이 없음 ② 멜로디 하나를 계속 반복 → 90초를 못 버팀 ③ 템포를 곡의 멋만 보고 정함 → 게임에 넣으면 캐릭터 움직임과 따로 놂</div>
+        <div class="ref"><b>레퍼런스</b> — 젤다 시간의 오카리나 하이랄 평원, 크로노 트리거 시대별 필드곡, 몬스터 헌터 시리즈의 필드, 원신 지역 테마</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 레시피 3 : 던전 ===== -->
+<section id="r3">
+  <div class="wrap">
+    <div class="kicker">04 — RECIPE 03</div>
+    <div class="recipe">
+      <div class="recipe-head">
+        <span class="rno">03</span><span class="rname">던전 · 긴장</span><span class="ren">DUNGEON / TENSION</span>
+      </div>
+      <div class="recipe-body">
+        <dl class="spec">
+          <dt>템포</dt><dd>60 ~ 88 BPM (느리게. 또는 아예 <em>무박</em>으로 앰비언트 처리)</dd>
+          <dt>조성</dt><dd>단조, 또는 조성 회피. 프리지안·로크리안 같은 어두운 모드, 온음음계·감7화음 활용</dd>
+          <dt>길이</dt><dd>120~180초 루프 (긴 편이 유리 — 던전은 오래 머물고, 짧은 루프는 압박감을 피로로 바꿈)</dd>
+          <dt>편성</dt><dd>6~12트랙. 지속 패드(저현·신스) / 불규칙 색채(하프 하모닉스·첼레스타·프리페어드 피아노) / 저역 드론 / 간헐적 타악(저역 히트·심벌 스크레이프) / <em>멜로디는 거의 없거나 아주 단편적으로</em></dd>
+        </dl>
+        <h4>구조</h4>
+        <p style="font-size:14.5px">전통적 A-B 구조가 아니라 <code>레이어의 증감</code>으로 설계합니다. <code>드론(계속) + 색채 이벤트(랜덤한 간격) + 저역 히트(16~32마디마다)</code>. 명확한 마디 구획보다 <em>사건이 드문드문 일어나는 시간</em>을 만드는 감각.</p>
+        <h4>제작 순서</h4>
+        <ol class="steps">
+          <li><b>드론부터.</b> 근음 하나를 길게 깔고, 그 위에 5도나 단2도를 겹칩니다. 단2도 겹침은 불안의 가장 빠른 재료입니다.</li>
+          <li><b>공간을 먼저 정한다.</b> 던전곡은 리버브가 편곡의 일부입니다. 큰 홀·동굴 계열 리버브를 걸고 그 안에서 작곡하세요.</li>
+          <li><b>색채 이벤트 배치.</b> 4마디마다 규칙적으로 넣지 말 것 — 3마디, 7마디, 5마디처럼 <em>불규칙한 간격</em>이 예측 불가의 긴장을 만듭니다.</li>
+          <li><b>저역 히트.</b> 16~32마디마다 한 번, 심장을 누르는 저역. 이 한 방이 곡의 맥박입니다.</li>
+          <li><b>멜로디 조각.</b> 완성된 선율이 아니라 3~5음의 단편만. 반복하되 매번 조금씩 다르게.</li>
+          <li><b>CC1은 미세하게.</b> 범위 15~65이지만 <em>계속 흔들려야</em> 합니다. 평평한 드론은 죽은 소리입니다.</li>
+        </ol>
+        <h4>미디 수치</h4>
+        <p style="font-size:14.5px">패드 벨로시티 <code>40~70</code> · 색채 이벤트 <code>55~90</code> · 저역 히트 <code>100~120</code> · CC1 <code>15~65</code>, 4~8초 주기의 느린 파형으로 계속 요동 · 리버브 디케이 3~6초, 프리딜레이 40~60ms</p>
+        <div class="checkbox">
+          <div class="cbt">검수 체크</div>
+          <ul>
+            <li>눈을 감고 들었을 때 "공간의 크기"가 느껴지는가</li>
+            <li>색채 이벤트의 간격이 규칙적이지 않은가 (마디 번호를 적어 확인)</li>
+            <li>CC1이 어느 구간에서도 5초 이상 평평하지 않은가</li>
+            <li>3분 들어도 신경이 곤두선 상태가 유지되는가 (지루함으로 바뀌면 실패)</li>
+          </ul>
+        </div>
+        <div class="fail"><b>흔한 실패</b> — ① 무서운 소리를 계속 채워 넣음 → 긴장은 <em>여백</em>에서 나옵니다 ② 리버브만 키우고 소스는 그대로 → 뿌옇기만 하고 무섭지 않음 ③ 멜로디를 제대로 써버림 → 던전이 필드처럼 들림</div>
+        <div class="ref"><b>레퍼런스</b> — 젤다 시리즈의 던전 계열, 다크 소울 계열의 지역 앰비언스, 사일런트 힐 계열(호러 방향), FF14 던전곡</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 레시피 4 : 일반 전투 ===== -->
+<section id="r4">
+  <div class="wrap">
+    <div class="kicker">05 — RECIPE 04</div>
+    <div class="recipe">
+      <div class="recipe-head">
+        <span class="rno">04</span><span class="rname">일반 전투</span><span class="ren">BATTLE / COMBAT</span>
+      </div>
+      <div class="recipe-body">
+        <dl class="spec">
+          <dt>템포</dt><dd>130 ~ 165 BPM</dd>
+          <dt>조성</dt><dd>단조 중심(에올리안·하모닉 마이너), 록 계열이면 도리안·프리지안</dd>
+          <dt>길이</dt><dd>60~90초 루프 (전투는 짧게 끝나므로 필드보다 짧아도 됨)</dd>
+          <dt>편성</dt><dd>12~20트랙. 리듬 코어(드럼·베이스·쇼트 스트링 오스티나토) / 브라스 스탭 / 멜로디(현·브라스·기타·신스 리드) / 색채 히트 / 필요시 합창</dd>
+        </dl>
+        <h4>구조</h4>
+        <p style="font-size:14.5px"><code>인트로 히트(1~2) → A(16) → B(16) → 짧은 브레이크(4) → A'(16)</code> — 전투곡은 <em>시작 1초에 승부</em>가 납니다. 인트로 히트나 강한 리프로 바로 진입하세요. 페이드인은 금물입니다.</p>
+        <h4>제작 순서</h4>
+        <ol class="steps">
+          <li><b>드럼과 베이스부터.</b> 다른 어떤 곡종보다 리듬 섹션이 먼저입니다. 킥 패턴이 곡의 뼈대.</li>
+          <li><b>오스티나토 깔기.</b> 쇼트 스트링(스피카토) 또는 신스 아르페지오로 16분/8분 반복 패턴. 이것이 전투곡의 엔진입니다.</li>
+          <li><b>브라스 스탭 배치.</b> 강박에 짧고 강하게. 마르카토 패치 사용.</li>
+          <li><b>멜로디 얹기.</b> 리듬이 이미 꽉 차 있으므로 멜로디는 <em>긴 음가</em>로 쓰는 편이 잘 뚫고 나옵니다. 16분으로 촘촘한 멜로디는 반주에 묻힙니다.</li>
+          <li><b>B 구간 대비.</b> A와 다른 요소를 하나만 바꾸세요(조성 이동 또는 멜로디 악기 교체). 다 바꾸면 다른 곡이 됩니다.</li>
+          <li><b>브레이크 넣기.</b> 4마디 정도 밀도를 크게 줄였다가 다시 터뜨리면 A'가 훨씬 강하게 들립니다.</li>
+        </ol>
+        <h4>미디 수치</h4>
+        <p style="font-size:14.5px">멜로디 벨로시티 <code>90~120</code> · 오스티나토 <code>80~105</code> (강박 +15) · 브라스 스탭 <code>105~125</code> · CC1 <code>50~120</code> (바닥을 높게 유지) · 쇼트 퀀타이즈 <code>94~98%</code> · 드럼은 라운드 로빈 있는 라이브러리 권장</p>
+        <div class="checkbox">
+          <div class="cbt">검수 체크</div>
+          <ul>
+            <li>재생 시작 1초 안에 "전투"임이 전달되는가</li>
+            <li>멜로디가 반주에 묻히지 않는가 (반주만 뮤트해서 비교)</li>
+            <li>루프 지점에서 에너지가 떨어지지 않는가</li>
+            <li>브라스·오스티나토가 쇼트 패치로 되어 있는가</li>
+            <li>저역(킥·베이스)이 서로 부딪히지 않는가</li>
+          </ul>
+        </div>
+        <div class="fail"><b>흔한 실패</b> — ① 처음부터 끝까지 최대 밀도 → 강한 게 아니라 시끄러운 곡이 됨 ② 멜로디를 빠른 음표로 채움 → 안 들림 ③ 루프 마지막에 힘이 빠지며 끝남 → 다시 시작될 때 어색함</div>
+        <div class="ref"><b>레퍼런스</b> — 포켓몬 야생전(레퍼런스 2부 참고), 페르소나 시리즈 전투, 니어 오토마타 전투곡, 몬스터 헌터 전투</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 레시피 5 : 보스 ===== -->
+<section id="r5">
+  <div class="wrap">
+    <div class="kicker">06 — RECIPE 05</div>
+    <div class="recipe">
+      <div class="recipe-head">
+        <span class="rno">05</span><span class="rname">보스 전투</span><span class="ren">BOSS BATTLE</span>
+      </div>
+      <div class="recipe-body">
+        <dl class="spec">
+          <dt>템포</dt><dd>140 ~ 180 BPM (또는 느린 90 BPM대의 압도형 — 거대 보스에 유효)</dd>
+          <dt>조성</dt><dd>단조. 반음계·감화음·증4도 적극 활용. 보스의 성격에 따라 조성 자체를 흔들기도</dd>
+          <dt>길이</dt><dd>2~4분 루프. 페이즈가 있으면 페이즈별 스템 분리 필수</dd>
+          <dt>편성</dt><dd>20트랙 이상. 풀 오케스트라 + 합창 + 밴드(드럼·일렉기타·베이스) + 신스 레이어 + 시네마틱 임팩트</dd>
+        </dl>
+        <h4>구조</h4>
+        <p style="font-size:14.5px"><code>인트로(4~8) → 1페이즈(32) → 전환(8) → 2페이즈(32) → 절정(16) → 루프백</code> — 일반 전투와의 결정적 차이는 <em>드라마의 곡선</em>입니다. 보스곡은 시작보다 끝이 더 커야 합니다.</p>
+        <div class="fig">
+          <svg viewBox="0 0 700 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="일반 전투와 보스 전투의 에너지 곡선 비교">
+            <text x="0" y="14" fill="#a8a69e" font-size="12" font-family="sans-serif">에너지 곡선 비교</text>
+            <rect x="0" y="24" width="700" height="124" fill="#222031" rx="4"></rect>
+            <!-- 일반전투: 높고 평탄 -->
+            <path d="M0 70 L60 52 L200 50 L340 56 L480 50 L620 54 L700 62" fill="none" stroke="#8ac2e0" stroke-width="2.2"></path>
+            <text x="8" y="42" fill="#8ac2e0" font-size="11" font-family="sans-serif">일반 전투 — 빠르게 올라가 유지</text>
+            <!-- 보스: 계단식 상승 -->
+            <path d="M0 128 L50 104 L200 100 L250 88 L400 84 L450 62 L600 40 L700 34" fill="none" stroke="#e4685c" stroke-width="2.4"></path>
+            <text x="404" y="126" fill="#e4685c" font-size="11" font-family="sans-serif">보스 — 계단식으로 계속 상승</text>
+            <line x1="250" y1="24" x2="250" y2="148" stroke="#2f2c42" stroke-dasharray="3 3"></line>
+            <line x1="450" y1="24" x2="450" y2="148" stroke="#2f2c42" stroke-dasharray="3 3"></line>
+            <text x="256" y="164" fill="#a8a69e" font-size="10" font-family="sans-serif">전환</text>
+            <text x="456" y="164" fill="#a8a69e" font-size="10" font-family="sans-serif">절정 진입</text>
+          </svg>
+          <div class="cap">일반 전투는 <b>빠르게 올라가 평탄하게 유지</b>, 보스는 <b>계단식으로 계속 상승</b>합니다. 보스곡에서 초반부터 전력을 쓰면 후반에 올릴 곳이 없어집니다 — 1페이즈는 의도적으로 <b>여지를 남기고</b> 시작하세요.</div>
+        </div>
+        <h4>제작 순서</h4>
+        <ol class="steps">
+          <li><b>절정부터 작곡한다.</b> 가장 강한 지점을 먼저 만들고, 거기서 역산해 앞을 채우세요. 앞에서부터 쓰면 절정에 도달할 여력이 없습니다.</li>
+          <li><b>보스의 테마 모티프 정하기.</b> 3~5음의 짧은 동기. 이것이 페이즈마다 변형되어 돌아옵니다(레퍼런스 2부 라이트모티프 참고).</li>
+          <li><b>1페이즈는 절정의 70% 밀도로.</b> 트랙 수를 줄이거나 음역을 좁혀 여지를 남깁니다.</li>
+          <li><b>전환 구간 설계.</b> 브레이크·필·조성 이동으로 페이즈가 바뀌었음을 소리로 알립니다.</li>
+          <li><b>절정에서 전부 투입.</b> 합창·풀 브라스·최대 음역. 여기서 아끼지 마세요.</li>
+          <li><b>스템 분리.</b> 페이즈별로 오디오를 나눠 출력. 게임에서 체력 구간에 따라 전환할 수 있게.</li>
+          <li><b>텐션 대안 버전 준비.</b> 로스트아크 카멘 4관문 사례처럼 "너무 높은 텐션이 긴 트라이에서 피로하다"는 피드백이 실제로 옵니다. 밀도를 낮춘 버전을 미리 만들어두면 재작업이 아니라 <em>선택지 제시</em>가 됩니다.</li>
+        </ol>
+        <h4>미디 수치</h4>
+        <p style="font-size:14.5px">1페이즈 CC1 <code>50~95</code> → 절정 CC1 <code>75~127</code> · 브라스 <code>100~127</code> · 합창 진입은 절정 8마디 전부터 · 임팩트 히트 <code>115~127</code> · 저역 서브 히트는 곡당 3~5회로 제한(남발하면 무게가 사라짐)</p>
+        <div class="checkbox">
+          <div class="cbt">검수 체크</div>
+          <ul>
+            <li>절정 구간이 1페이즈보다 확실히 크게 들리는가 (라우드니스 미터로 확인)</li>
+            <li>보스 모티프가 최소 3회 변형되어 등장하는가</li>
+            <li>페이즈별 스템이 분리 출력되어 있는가</li>
+            <li>4분 연속 재생 후에도 피로하지 않은가</li>
+            <li>텐션을 낮춘 대안 버전이 준비되어 있는가</li>
+          </ul>
+        </div>
+        <div class="fail"><b>흔한 실패</b> — ① 처음부터 최대 밀도 → 절정이 없는 곡 ② 임팩트 히트 남발 → 무게감 소멸 ③ 스템 없이 완성곡만 납품 → 페이즈 연출 불가로 재작업</div>
+        <div class="ref"><b>레퍼런스</b> — 록맨 2 와일리 스테이지(레퍼런스 1부), FF6 Dancing Mad(2부), 로스트아크 군단장 레이드곡, 엘든 링·다크 소울 보스곡, FF14 극·영웅 난이도 보스곡</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 레시피 6 : 타이틀 ===== -->
+<section id="r6">
+  <div class="wrap">
+    <div class="kicker">07 — RECIPE 06</div>
+    <div class="recipe">
+      <div class="recipe-head">
+        <span class="rno">06</span><span class="rname">타이틀 · 메인테마</span><span class="ren">TITLE / MAIN THEME</span>
+      </div>
+      <div class="recipe-body">
+        <dl class="spec">
+          <dt>템포</dt><dd>66 ~ 100 BPM (장중하게) 또는 게임 성격에 따라 자유</dd>
+          <dt>조성</dt><dd>장조 중심. 서사 게임은 단조로 시작해 장조로 해결하는 구성도 강력</dd>
+          <dt>길이</dt><dd>90~150초. 앞 <em>10초가 승부처</em></dd>
+          <dt>편성</dt><dd>가용 최대. 이 곡이 게임의 얼굴이므로 예산을 여기에 몰아도 됩니다</dd>
+        </dl>
+        <h4>구조</h4>
+        <p style="font-size:14.5px"><code>인상적 도입(4~8) → 주제 제시(16) → 발전(16) → 주제 재현·확대(16) → 여운(4~8)</code></p>
+        <h4>제작 순서</h4>
+        <ol class="steps">
+          <li><b>게임 전체의 모티프를 여기서 정한다.</b> 메인테마의 주제는 이후 모든 곡에서 변형되어 재등장할 자산입니다. 마리오 지상 테마가 40년간 시리즈의 청각 자산이 된 것처럼(레퍼런스 1부).</li>
+          <li><b>3~5초 안에 각인되는 도입.</b> 스기야마 코이치가 CM 음악 경력에서 얻은 원칙 — 청중을 붙잡을 시간은 3~5초뿐입니다.</li>
+          <li><b>주제 선율은 단순하게.</b> 변형을 견디려면 원형이 단순해야 합니다. 8마디 안에 끝나고, 목소리로 부를 수 있어야 합니다.</li>
+          <li><b>발전부에서 확장.</b> 조성 이동, 편성 추가, 대선율 도입.</li>
+          <li><b>재현부는 크게.</b> 같은 주제를 더 풍성한 편성으로.</li>
+          <li><b>여운 처리.</b> 타이틀 화면에서 루프되므로 끝을 완전히 닫지 말고 다시 시작될 여지를 남깁니다.</li>
+        </ol>
+        <h4>미디 수치</h4>
+        <p style="font-size:14.5px">주제 제시 CC1 <code>40~85</code> → 재현부 <code>65~120</code> · 도입 임팩트 <code>110~127</code> · 현 레가토 노트 <code>2~5% 겹침</code> · 리버브는 홀 계열로 넉넉하게(디케이 2.5~4초)</p>
+        <div class="checkbox">
+          <div class="cbt">검수 체크</div>
+          <ul>
+            <li>도입 5초만 들려줬을 때 상대가 흥미를 보이는가</li>
+            <li>주제 선율을 악보 없이 흥얼거릴 수 있는가</li>
+            <li>이 주제를 슬픈 버전·전투 버전으로 변형할 수 있는가 (스케치로 확인)</li>
+            <li>재현부가 제시부보다 확실히 크고 넓은가</li>
+          </ul>
+        </div>
+        <div class="fail"><b>흔한 실패</b> — ① 주제를 복잡하게 만듦 → 변형이 불가능해 게임 전체의 음악 자산이 되지 못함 ② 도입이 느긋함 → 타이틀 화면은 몇 초 만에 넘어갑니다 ③ 완전 종지로 끝냄 → 루프 시 어색</div>
+        <div class="ref"><b>레퍼런스</b> — 드래곤 퀘스트 서곡, 크로노 트리거 메인테마, 젤다 메인테마, 스카이림 메인테마, 위쳐3 메인테마</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 레시피 7 : 징글 ===== -->
+<section id="r7">
+  <div class="wrap">
+    <div class="kicker">08 — RECIPE 07</div>
+    <div class="recipe">
+      <div class="recipe-head">
+        <span class="rno">07</span><span class="rname">징글 · 상태 통보</span><span class="ren">JINGLE / STINGER</span>
+      </div>
+      <div class="recipe-body">
+        <dl class="spec">
+          <dt>길이</dt><dd>승리 3~8초 / 레벨업 1~3초 / 아이템 획득 0.5~1.5초 / 게임오버 3~6초</dd>
+          <dt>템포</dt><dd>본편 곡과 맞출 필요 없음. 다만 <em>승리 징글은 전투곡과 같은 조성</em>이면 전환이 매끄러움</dd>
+          <dt>편성</dt><dd>2~8트랙. 짧으므로 악기를 늘리기보다 <em>선명한 조합</em>이 중요</dd>
+        </dl>
+        <h4>제작 순서</h4>
+        <ol class="steps">
+          <li><b>감정을 한 단어로 정의한다.</b> "성취" "안도" "허탈" "각성" — 3초 안에 하나의 감정만 전달합니다. 두 개를 담으면 아무것도 전달되지 않습니다.</li>
+          <li><b>첫 음이 곧 시작.</b> 페이드인 금지. 무음에서 바로 최대 밀도로 진입.</li>
+          <li><b>화성 진행 최소화.</b> 3초짜리 곡에 코드 4개는 많습니다. 2개 이하, 때로는 하나로.</li>
+          <li><b>끝을 확실히 닫는다.</b> 루프곡과 반대입니다. 징글은 완전 종지로 딱 끝나야 "사건이 종료됐다"가 전달됩니다.</li>
+          <li><b>게임오버 징글은 다시 시작하게.</b> 마리오 게임오버가 지상 테마의 첫 세 음으로 시작한다는 분석(레퍼런스 1부)처럼, 좌절이 아니라 재도전으로 이어지는 설계를 고려하세요.</li>
+          <li><b>본편 곡과 연결 테스트.</b> 전투곡 → 승리 징글 → 필드곡 순으로 실제 재생해보고 어색한 지점을 잡습니다.</li>
+        </ol>
+        <h4>미디 수치</h4>
+        <p style="font-size:14.5px">첫 음 벨로시티 <code>105~127</code> · CC1은 짧아서 곡선보다 <em>초기값 설정</em>이 중요(80 이상에서 시작) · 릴리즈 꼬리를 자르지 말 것 — 징글의 여운이 다음 곡으로 넘어가는 다리 역할 · 라우드니스는 본편 곡보다 <code>2~4dB 크게</code>(짧은 소리는 작게 들림)</p>
+        <div class="checkbox">
+          <div class="cbt">검수 체크</div>
+          <ul>
+            <li>3초 안에 감정이 전달되는가 (모르는 사람에게 들려주고 한 단어로 답을 받아볼 것)</li>
+            <li>본편 곡과 이어 재생했을 때 볼륨 차이가 어색하지 않은가</li>
+            <li>첫 음이 즉시 시작되는가 (파형 앞의 무음 확인)</li>
+            <li>같은 징글을 20번 연속 들어도 거슬리지 않는가 (아이템 획득음은 수천 번 들립니다)</li>
+          </ul>
+        </div>
+        <div class="fail"><b>흔한 실패</b> — ① 3초에 서사를 담으려 함 ② 앞에 무음이 붙어 반응이 늦게 느껴짐 ③ 본편 곡보다 작게 마스터링되어 존재감이 없음 ④ 화려하게 만들어 반복 시 피로</div>
+        <div class="ref"><b>레퍼런스</b> — 젤다 아이템 획득 징글, 마리오 레벨업·게임오버, 파이널 판타지 승리 팡파르, 몬스터 헌터 수렵 완료</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 트러블슈팅 ===== -->
+<section id="trouble">
+  <div class="wrap">
+    <div class="kicker">09 — TROUBLESHOOTING</div>
+    <h2>트러블슈팅 표</h2>
+    <p>"뭔가 이상한데 뭐가 문제인지 모르겠다"에서 원인으로 역추적하는 표입니다. 위에서부터 순서대로 의심하세요.</p>
+    <div class="tbl-scroll">
+      <table>
+        <tbody><tr><th style="min-width:150px">증상</th><th>의심 순서와 처방</th></tr>
+        <tr>
+          <td class="sym">현이 생기 없이 계속 웅웅거린다</td>
+          <td class="cure"><b>1</b> CC1이 평평함 → 프레이즈마다 곡선 그리기 <b>2</b> 롱 패치로 리듬까지 연주 중 → 쇼트 패치 분리 <b>3</b> 같은 음역에 트랙이 몰림 → 옥타브 분산 <b>4</b> 리버브 과다 → 드라이로 되돌려 점검</td>
+        </tr>
+        <tr>
+          <td class="sym">전체가 기계처럼 딱딱하다</td>
+          <td class="cure"><b>1</b> 벨로시티 동일값 연속 → 강박·여린박에 따라 값 차등 <b>2</b> 퀀타이즈 100% → 88~95%로 <b>3</b> 화음이 완전 동시 타건 → 5~20ms 롤링 <b>4</b> 섹션 더블링이 완전 동일 → 3~8ms 어긋내기</td>
+        </tr>
+        <tr>
+          <td class="sym">멜로디가 안 들린다</td>
+          <td class="cure"><b>1</b> 멜로디 음가가 너무 짧음 → 긴 음가로 재작성 <b>2</b> 반주가 같은 음역 점유 → 반주를 아래로 <b>3</b> 멜로디 CC1이 반주보다 낮음 <b>4</b> 트랙 수 과다 → 반주 트랙 솎아내기</td>
+        </tr>
+        <tr>
+          <td class="sym">저역이 뭉개진다</td>
+          <td class="cure"><b>1</b> 킥과 베이스가 같은 대역 충돌 → 한쪽을 EQ로 비켜주기 <b>2</b> 저역 악기가 3개 이상 동시 <b>3</b> 리버브가 저역까지 먹음 → 리버브 입력에 로우컷 <b>4</b> 콘트라베이스·튜바가 실제 음역 아래로 내려감</td>
+        </tr>
+        <tr>
+          <td class="sym">루프에서 툭 끊긴다</td>
+          <td class="cure"><b>1</b> 마지막 마디가 완전 종지 → 화성을 열어두기 <b>2</b> 리버브 꼬리가 잘림 → 꼬리를 앞에 겹치거나 인트로/루프 분리 납품 <b>3</b> 마지막 마디에서 밀도가 급감 <b>4</b> 루프 시작·끝의 라우드니스 차이</td>
+        </tr>
+        <tr>
+          <td class="sym">보스곡인데 안 웅장하다</td>
+          <td class="cure"><b>1</b> 처음부터 최대 밀도 → 1페이즈 밀도를 낮춰 여지 만들기 <b>2</b> 음역 폭이 좁음 → 최저·최고음 간격 확대 <b>3</b> 임팩트 남발 → 3~5회로 제한 <b>4</b> 합창·저역 레이어 부재</td>
+        </tr>
+        <tr>
+          <td class="sym">오래 들으면 피곤하다</td>
+          <td class="cure"><b>1</b> 고역이 과다 → 8~12kHz 확인 <b>2</b> 밀도가 계속 최대 → 여백 구간 삽입 <b>3</b> 루프가 너무 짧음 → 길이 확장 또는 변주 추가 <b>4</b> 텐션이 계속 높음 → 로스트아크 사례처럼 저텐션 버전 검토</td>
+        </tr>
+        <tr>
+          <td class="sym">데모는 좋은데 게임에 넣으면 별로다</td>
+          <td class="cure"><b>1</b> 효과음과 대역 충돌 → 중역을 비워두기 <b>2</b> 템포가 캐릭터 움직임과 안 맞음 <b>3</b> 게임 내 볼륨에서는 디테일이 안 들림 → 핵심을 중역에 배치 <b>4</b> 모니터링 환경에서만 좋음 → 폰 스피커·저가 이어폰 점검</td>
+        </tr>
+        <tr>
+          <td class="sym">"뭔가 싸구려로 들린다"</td>
+          <td class="cure"><b>1</b> 아티큘레이션 미분리(가장 흔한 원인) <b>2</b> CC 미사용 <b>3</b> 음역·편성 위반(악기가 못 내는 음) <b>4</b> 프리셋 리버브를 전 트랙에 동일 적용 <b>5</b> 마지막으로 음원 품질 — 앞의 넷을 다 잡고도 부족할 때만 의심할 것</td>
+        </tr>
+      </tbody></table>
+    </div>
+    <div class="note"><strong>순서가 중요합니다</strong> — 대부분의 "싸구려 느낌"은 음원 가격이 아니라 미디 처리에서 옵니다. 언더테일이 무료 사운드폰트로 세계적 사운드트랙이 된 것이 그 증거입니다. 음원 탓은 항상 <em>마지막</em>에 하세요.</div>
+  </div>
+</section>
+
+<!-- ===== 음원 조합표 ===== -->
+<section id="vsti">
+  <div class="wrap">
+    <div class="kicker">10 — INSTRUMENT SETS</div>
+    <h2>음원 조합표 — 곡종별</h2>
+    <p>레시피별로 "무엇을 켜야 하는가"를 정리했습니다. 무료 단계로도 7종 전부 제작 가능합니다.</p>
+    <div class="tbl-scroll">
+      <table>
+        <tbody><tr><th>곡종</th><th>무료 조합 (0원)</th><th>확장 시 우선순위</th></tr>
+        <tr>
+          <td>마을</td>
+          <td>LABS(솔로 스트링·피아노·플루트 계열), BBC SO Discover의 목관</td>
+          <td>피아노 전용 음원 → 소편성 스트링</td>
+        </tr>
+        <tr>
+          <td>필드</td>
+          <td>BBC SO Discover(현·금관·타악 일체)</td>
+          <td>종합 오케스트라 라이브러리 → 스트링 전문</td>
+        </tr>
+        <tr>
+          <td>던전</td>
+          <td>Vital·Surge XT(패드·드론), LABS의 실험적 음색</td>
+          <td>앰비언트·텍스처 전문 라이브러리</td>
+        </tr>
+        <tr>
+          <td>일반 전투</td>
+          <td>BBC SO Discover + 무료 드럼 + Vital</td>
+          <td>드럼 음원 → 기타 음원 → 쇼트 스트링 강화</td>
+        </tr>
+        <tr>
+          <td>보스</td>
+          <td>위 조합 총동원 + 무료 합창 음원</td>
+          <td>합창 라이브러리 → 시네마틱 임팩트 → 브라스 전문</td>
+        </tr>
+        <tr>
+          <td>타이틀</td>
+          <td>BBC SO Discover 중심, 피아노는 LABS</td>
+          <td>가장 좋은 음원을 여기에 투입</td>
+        </tr>
+        <tr>
+          <td>징글</td>
+          <td>글로켄·하프·브라스 — 기존 음원으로 충분</td>
+          <td>별도 투자 불필요</td>
+        </tr>
+        <tr>
+          <td>레트로·칩튠</td>
+          <td>Magical 8bit Plug, 무료 사운드폰트(.sf2)</td>
+          <td>실칩 에뮬레이션 음원</td>
+        </tr>
+      </tbody></table>
+    </div>
+    <p class="uncertain">확실하지 않음 표기 — 제품명은 널리 쓰이는 대표 예시이며, 무료 배포 여부·구성·가격은 수시로 변경됩니다. 다운로드 전 각 개발사 공식 페이지에서 현재 상태를 확인하세요. 또한 라이브러리마다 다이내믹 매핑(CC1/벨로시티)과 아티큘레이션 전환 방식이 다르므로 매뉴얼 확인이 선행되어야 합니다.</p>
+    <div class="note"><strong>확장 원칙</strong> — 무료 조합으로 7종을 <em>한 번씩 다 만들어본 뒤에</em> 구매를 시작하세요. 그때쯤이면 "내 곡에서 무엇이 부족한지"가 구체적으로 보이고, 그 부족함이 곧 정확한 쇼핑 리스트가 됩니다.</div>
+  </div>
+</section>
+
+<section id="practice">
+  <div class="wrap">
+    <div class="kicker">11 — PRACTICE</div>
+    <h2>실습 — 7종 완주 프로그램</h2>
+    <p>레시피북의 사용법 자체가 실습입니다. 가상의 게임 하나를 정하고 7곡을 순서대로 완성하세요.</p>
+    <div class="recipe">
+      <div class="recipe-body">
+        <ol class="steps">
+          <li><b>가상 게임 설정.</b> 장르·세계관·주인공을 3줄로 정의. 이것이 모든 곡의 기준점이 됩니다.</li>
+          <li><b>타이틀(레시피 6)부터 작곡.</b> 여기서 만든 주제 모티프를 이후 곡들에 심습니다.</li>
+          <li><b>마을 → 필드 → 던전</b> 순으로 제작. 각 곡에 타이틀 모티프의 흔적을 한 번씩 넣으세요.</li>
+          <li><b>일반 전투 → 보스</b> 제작. 보스곡에는 타이틀 모티프를 <em>단조로 변형</em>해 삽입.</li>
+          <li><b>징글 4종</b> 제작 (승리·레벨업·획득·게임오버).</li>
+          <li><b>납품 패키지 정리.</b> 루프 처리, 보스곡 페이즈 스템 분리, 파일명 규칙, 사양 명세서.</li>
+        </ol>
+        <div class="checkbox">
+          <div class="cbt">완주 후 포트폴리오 점검</div>
+          <ul>
+            <li>7곡 전부에서 타이틀 모티프를 찾을 수 있는가</li>
+            <li>각 곡의 검수 체크를 모두 통과했는가</li>
+            <li>트러블슈팅 표의 9개 증상 중 해당되는 것이 없는가</li>
+            <li>미디 편집 화면 캡처를 곡마다 보관했는가 (제작 능력 증빙 자료)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="note"><strong>왜 7곡인가</strong> — 국내 게임음악 스튜디오의 채용 요건이 "오케스트라 이해 + 다양한 장르 구현"인 이유가 여기 있습니다. 한 장르만 잘하는 사람보다, 발주되는 곡종 전부를 감당할 수 있는 사람이 필요하기 때문입니다. 7곡 세트가 그 증거가 됩니다.</div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><strong>참고 및 주의</strong></p>
+    <ul class="src-list">
+      <li>본 레시피의 수치는 일반적인 실무 관행과 라이브러리 사용 경험을 정리한 <em>출발점</em>이며, 절대적 기준이 아닙니다. 프로젝트의 아트 디렉션과 장르에 따라 조정하세요.</li>
+      <li>라이브러리별 다이내믹 매핑(CC1/CC11/벨로시티)과 아티큘레이션 전환 방식은 제품마다 다릅니다. 반드시 매뉴얼을 확인하고 적용하세요.</li>
+      <li>제작 사례 출처 — 토비 폭스 공식 공지(FL Studio 10 + 무료 사운드폰트·VST), 나무위키 로스트아크/BGM(카멘 4관문 텐션 재조정 과정, 공식 방송 발언 정리), 스튜디오EIM 공식·채용 공고(오케스트라 이해 필수, 다양한 장르 구현), 인벤 GDC 2018 검은사막 오디오 리마스터 강연 취재</li>
+      <li>작곡 원리의 근거는 시리즈 자료 「고전 게임음악 레퍼런스 분석 1·2부」의 각 출처를 따릅니다 — 콘도 코지·고시로 유조의 움직임 기반 작곡, 스기야마 코이치의 3~5초 원칙, 마리오 게임오버의 심리 설계 등</li>
+    </ul>
+    <p style="margin-top:24px">엠나인아카데미 게임음악작곡 과정 수강생용 학습자료 · 연계: 고전 게임음악 레퍼런스 분석 1·2부 · 악기론 가이드</p>
+  </div>
+</footer>
+
+
+
+</body></html>
